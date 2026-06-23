@@ -168,4 +168,60 @@ Tổng trở kháng của nhánh gánh này được tính bằng công thức:
 
 * **Cách trả lời ăn điểm:** "Dạ thưa Thầy/Cô, tên gọi 'song song' (Shunt) ở đây là tương quan so với **tín hiệu xoay chiều ngõ ra**. Đối với tín hiệu RF tại nút Collector, nhánh gánh (L nối tiếp R) và tụ điện ký sinh C_eff đang được mắc song song với nhau cùng hướng xuống điểm đất AC. Cuộn cảm này có nhiệm vụ tạo đỉnh cộng hưởng (Peaking) song song với tụ ký sinh để nâng trở kháng tải ở tần số cao, vì vậy mạch có tên gọi khoa học là Shunt Peaking ạ."
 
+---
+
+<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/2bc3c3fc-5c3b-4efb-858d-a11277da9517" />
+# Phân Tích Chi Tiết Mạch Khuếch Đại Bù Cuộn Cảm Nối Tiếp (Series Peaking Amplifier)
+
+[![Field - RF & Microwave](https://img.shields.io/badge/Field-RF%20%26%20Microwave-blue.svg)](https://github.com)
+[![Circuit - Series Peaking](https://img.shields.io/badge/Circuit-Series%20Peaking-green.svg)](https://github.com)
+
+Nếu mạch ở slide trước là bù song song (Shunt Peaking), thì mạch trong hình này sử dụng kỹ thuật **Series Peaking (Bù cuộn cảm nối tiếp)**. Đây là một phương pháp nâng cao để mở rộng dải thông (Bandwidth) cho mạch khuếch đại ở tần số siêu cao, thường mang lại hiệu suất mở rộng dải thông tốt hơn so với bù song song.
+
+---
+
+## 1. Phân Tích Vai Trò Các Linh Kiện Cơ Bản
+
+* **$V_{IN}$ và $R_S$:** Nguồn tín hiệu đầu vào và điện trở nội của nguồn.
+* **Điện trở cực Emitter ($R_E$):** Ổn định nhiệt và phân cực DC (định thiên) tĩnh cho BJT. Tuy nhiên, đối với tín hiệu xoay chiều, nó sẽ gây ra hiện tượng phản hồi âm làm giảm hệ số khuếch đại.
+* **Tụ thoát Emitter ($C_E$):** Được mắc song song với $R_E$. Ở dải tần làm việc siêu cao, tụ $C_E$ có trở kháng rất nhỏ ($Z_C \approx 0$), tạo ra một điểm **Đất ảo (AC Ground)** tại cực Emitter. Nhờ đó, tín hiệu xoay chiều đi thẳng xuống đất mà không qua $R_E$, triệt tiêu sự phản hồi âm AC và tối đa hóa độ lợi (Gain).
+* **Điện trở tải ($R$):** Gánh tải DC trên cực Collector và quyết định độ lợi của mạch ở dải tần số thấp và trung bình.
+* **Tụ điện ngõ ra ($C$):** Ở đây đại diện cho tụ tải (Load Capacitance) hoặc tổng các điện dung ký sinh của tầng khuếch đại tiếp theo kéo xuống đất.
+
+---
+
+## 2. Bài Toán Giới Hạn Dải Thông Do Tụ Tải ($C$)
+
+Tương tự như mạch trước, nguyên nhân chính làm mạch suy giảm khuếch đại ở dải tần siêu cao chính là dung kháng của tụ $C$.
+* Dung kháng được tính bằng công thức: $X_C = \frac{1}{2\pi f C}$
+* Khi tần số tín hiệu $f$ tăng lên vùng siêu cao, dung kháng $X_C$ sụt giảm rất mạnh. Tín hiệu xoay chiều từ cực Collector thay vì đi thẳng ra ngõ ra $V_{OUT}$ sẽ bị rò rỉ và thoát xuống đất qua tụ $C$. 
+* Hiện tượng này biến cấu trúc mạch trở thành một bộ lọc thông thấp (Low-pass filter) ký sinh, làm suy giảm biên độ tín hiệu ngõ ra và thu hẹp dải thông làm việc.
+
+---
+
+## 3. Nguyên Lý Bù Tần Số Bằng Cuộn Cảm Nối Tiếp ($L$)
+
+Để khắc phục sự suy hao, một cuộn cảm $L$ được mắc **nối tiếp** trên đường dẫn tín hiệu từ Collector đến nút ngõ ra chứa tụ $C$.
+
+### 🔄 Cơ chế bù đáp ứng tần số:
+1. **Cách ly tải dung tính:** Ở tần số cao, cuộn cảm $L$ sinh ra cảm kháng lớn ($X_L = 2\pi f L$). Cuộn cảm này đóng vai trò như một "bức tường" cách ly cực Collector của BJT khỏi sự suy hao trực tiếp của tụ $C$. Nó tách rời điện dung ký sinh bên trong Transistor khỏi điện dung tải $C$ bên ngoài để chúng không cộng dồn lại làm nặng tải.
+2. **Tạo cộng hưởng bù trừ:** Cuộn cảm $L$ kết hợp với tụ điện $C$ tạo thành một mạng lưới cộng hưởng nối tiếp. Khi tần số tín hiệu tiến dần đến tần số cắt (tần số mà tín hiệu bắt đầu bị suy giảm), hiện tượng cộng hưởng LC này sẽ nhô lên và bù đắp thêm điện áp tại nút ngõ ra $V_{OUT}$.
+3. **Hiệu ứng đẩy dải thông:** Lượng điện áp được bù đắp này lấp đầy chính xác vào phần bị suy giảm do tụ ký sinh gây ra. Kết quả là đáp ứng tần số của mạch được giữ phẳng và kéo dài ra xa hơn rất nhiều trước khi thực sự dốc xuống.
+
+> **Đánh giá:** Kỹ thuật bù nối tiếp (Series Peaking) có thể giúp dải thông mở rộng gấp **1.5 đến 2 lần** (thậm chí cao hơn nếu kết hợp tối ưu) so với mạch không bù, đem lại hiệu suất vượt trội hơn cấu hình bù song song (Shunt Peaking).
+
+---
+
+## 4. Câu Hỏi Vấn Đáp Ăn Điểm Khi Gặp Mạch Này
+
+> 💡 **Câu hỏi của Thầy/Cô:** *"Em hãy phân biệt sự khác nhau cơ bản về vị trí mắc và tác dụng của cuộn cảm L trong mạch này (Series Peaking) so với mạch trước (Shunt Peaking)?"*
+
+* **Cách trả lời ăn điểm:** "Dạ thưa Thầy/Cô:
+  1. **Về cấu trúc:** Ở mạch Shunt Peaking, cuộn cảm $L$ được mắc nối tiếp với điện trở gánh $R$ thành một nhánh, nhánh này mắc **song song** với mạch nhìn từ ngõ ra. Còn ở mạch Series Peaking này, cuộn cảm $L$ được mắc trực tiếp **nối tiếp** trên đường tín hiệu từ Collector nối ra tải.
+  2. **Về cơ chế:** Shunt Peaking hoạt động bằng cách *tăng tổng trở tải* cục bộ ở tần số cao để tăng độ lợi, bù lại phần tín hiệu bị rò. Trong khi đó, Series Peaking hoạt động thông minh hơn bằng cách *cách ly tải tụ* và dùng đặc tính cộng hưởng trễ của dòng qua cuộn cảm để duy trì điện áp trên tụ tải. Nhờ khả năng phân tách điện dung, Series Peaking giúp mở rộng băng thông tốt hơn so với Shunt Peaking ạ."
+
+---
+<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/f1c9af9f-7130-418e-a8e9-1cc2e25060e0" />
+
+
 
