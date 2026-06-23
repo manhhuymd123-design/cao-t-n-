@@ -116,3 +116,56 @@ Theo thông số đề bài cung cấp, điện áp tĩnh tại chân Source đ�
 
 * **Cách trả lời:** "Dạ thưa Thầy/Cô, nếu tụ Bypass bị hở mạch, tín hiệu RF tại chân Source sẽ không thể thoát xuống đất xoay chiều mà bắt buộc phải chạy qua điện trở $R_S$. Do $R_S$ có giá trị điện trở lớn, nó sẽ tạo ra một hiện tượng **phản hồi âm dòng điện (Negative Feedback)** đối với tín hiệu AC. Hệ quả là độ lợi khuếch đại (Gain) của mạch sẽ bị sụt giảm nghiêm trọng, mạch gần như không còn khả năng khuếch đại hiệu quả ở tần số siêu cao."
 
+---
+
+<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/08abdf29-8de1-49af-8e24-5424f002a345" />
+# Phân Tích Chi Tiết Mạch Khuếch Đại Bù Tần Số Mở Rộng Dải Thông (Shunt Peaking Amplifier)
+
+[![Field - RF & Microwave](https://img.shields.io/badge/Field-RF%20%26%20Microwave-blue.svg)](https://github.com)
+[![Circuit - Shunt Peaking](https://img.shields.io/badge/Circuit-Shunt%20Peaking-orange.svg)](https://github.com)
+
+Kỹ thuật **Shunt Peaking (Bù cuộn cảm song song)** là một phương pháp kinh điển trong kỹ thuật siêu cao tần, được sử dụng để mở rộng dải tần số làm việc (Bandwidth) của mạch khuếch đại dùng Transistor BJT mà không làm suy giảm độ lợi (Gain) ở dải tần số thấp.
+
+---
+
+## 1. Thành Phần Ký Sinh - Nguyên Nhân Giới Hạn Dải Thông
+
+Trong sơ đồ, sự xuất hiện của tụ điện **C_eff = 1.5 pF** ở ngõ ra đóng vai trò quyết định đến đáp ứng tần số:
+* **Bản chất:** Đây không phải là tụ điện gắn thêm, mà là **Tụ điện ký sinh hiệu dụng (Effective Parasitic Capacitance)**. Nó bao gồm tụ ký sinh nội tại giữa các cực của BJT (như C_bc, C_ce) và tụ ký sinh của đường mạch in (PCB layout layout).
+* **Ở tần số thấp:** Dung kháng của tụ rất lớn (X_C = 1 / (omega * C) -> vô cùng), tụ đóng vai trò như một mạch hở và hoàn toàn không ảnh hưởng đến mạch.
+* **Ở tần số siêu cao:** Khi tần số tăng lên, dung kháng X_C giảm mạnh. Tín hiệu RF sau khi được khuếch đại tại cực Collector, thay vì đi toàn bộ ra ngõ ra V_OUT, sẽ bị rò rỉ và thoát một phần xuống đất thông qua tụ ký sinh C_eff. 
+
+> **Hệ quả:** Biên độ tín hiệu ngõ ra bị sụt giảm nghiêm trọng ở băng tần cao, khiến dải thông (băng thông) của mạch khuếch đại bị thu hẹp lại.
+
+---
+
+## 2. Nguyên Lý Bù Tần Số Của Nhánh Khối Gánh (L = 4.8 nH và R = 100 Ohm)
+
+Để khắc phục hiện tượng sụt giảm độ lợi do tụ ký sinh, một cuộn cảm **L = 4.8 nH** được mắc nối tiếp với điện trở gánh **R = 100 Ohm**. Nhánh sê-ri này được mắc song song với mạng tụ ký sinh ngõ ra (nhìn từ nút Collector), nên kỹ thuật này gọi là **Shunt Peaking**.
+
+Tổng trở kháng của nhánh gánh này được tính bằng công thức:
+**Z_load = R + j * omega * L**
+
+### 🔄 Cơ chế bù đáp ứng tần số:
+1. Khi tần số tín hiệu (omega) tăng lên, cảm kháng của cuộn cảm (X_L = omega * L) cũng tăng theo tuyến tính.
+2. Việc cảm kháng tăng giúp tổng trở gánh toàn mạch **Z_load** tăng tiến ở vùng tần số cao.
+3. Theo nguyên lý khuếch đại, độ lợi điện áp tỉ lệ thuận với tổng trở tải (A_v ~ -g_m * Z_load). Sự tăng lên của Z_load ở tần số cao sẽ **bù đắp hoàn hảo** cho lượng tín hiệu bị hao hụt, rò rỉ qua tụ ký sinh C_eff.
+4. Tại vùng dải tần giới hạn, cuộn cảm L và tụ ký sinh C_eff phối hợp tạo ra một hiện tượng **cộng hưởng song song**, đẩy đáp ứng tần số phẳng ra và kéo dãn tần số cắt 3dB lên một mức cao hơn.
+
+---
+
+## 3. Ý Nghĩa Giá Trị Linh Kiện Thực Tế Trong Đề Bài
+
+* **R_S:** Điện trở nội của nguồn tín hiệu ngõ vào V_IN.
+* **100 Ohm:** Điện trở tải một chiều (DC) để thiết lập dòng tĩnh cho BJT, đồng thời là tải định hình độ lợi ở dải tần thấp.
+* **4.8 nH:** Giá trị cảm kháng được tính toán tối ưu dựa trên giá trị của tụ ký sinh 1.5 pF để đạt được đáp ứng tần số phẳng tối đa (Maximally Flat Response - ứng với hệ số bù định trị tối ưu m = 0.414).
+
+---
+
+## 4. Câu Hỏi Vấn Đáp Ăn Điểm Khi Gặp Mạch Này
+
+> 💡 **Câu hỏi của Thầy/Cô:** *"Tại sao mạch này lại gọi là bù cuộn cảm song song (Shunt Peaking) trong khi trong hình tôi thấy cuộn cảm L rõ ràng đang mắc nối tiếp với điện trở 100 Ohm?"*
+
+* **Cách trả lời ăn điểm:** "Dạ thưa Thầy/Cô, tên gọi 'song song' (Shunt) ở đây là tương quan so với **tín hiệu xoay chiều ngõ ra**. Đối với tín hiệu RF tại nút Collector, nhánh gánh (L nối tiếp R) và tụ điện ký sinh C_eff đang được mắc song song với nhau cùng hướng xuống điểm đất AC. Cuộn cảm này có nhiệm vụ tạo đỉnh cộng hưởng (Peaking) song song với tụ ký sinh để nâng trở kháng tải ở tần số cao, vì vậy mạch có tên gọi khoa học là Shunt Peaking ạ."
+
+
