@@ -266,4 +266,55 @@ Mạch khuếch đại trong sơ đồ là cấu hình tối ưu nâng cao ứng
 
 * **Cách trả lời ăn điểm:** "Dạ thưa Thầy/Cô, nếu chúng ta chỉ tăng giá trị của cuộn L1 lên quá lớn, mạch sẽ xảy ra hiện tượng **quá bù (Over-peaking)**. Lúc này, đáp ứng tần số tại vùng cao tần sẽ bị nhô lên một đỉnh nhọn rất cao gây méo biên độ nghiêm trọng và dễ khiến mạch bị mất ổn định, tự kích thành mạch dao động. Bằng cách phối hợp thêm cuộn L2 nối tiếp, ta có thể phân tách bớt nhiệm vụ: L1 lo tăng trở kháng tải vừa phải, còn L2 lo cách ly điện dung tải và định hình đáp ứng cộng hưởng ngõ ra. Giải pháp kết hợp này giúp mạch vừa đạt được băng thông rộng lớn nhất, vừa giữ được đáp ứng tần số phẳng tối đa (Maximally Flat Response) mà không sợ bị tự kích ạ."
 
+---
+<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/b19a8e74-2a86-41ce-b630-926d330d4513" />
+# Phân Tích Mạch Khuếch Đại Siêu Cao Tần (RF Amplifier)
+*Tài liệu ôn thi vấn đáp môn Siêu cao tần*
+
+> **Mẹo ăn điểm:** Chìa khóa quan trọng nhất khi thi vấn đáp mạch này là phải phân biệt rạch ròi giữa **đường đi của dòng DC (phân cực)** và **đường đi của tín hiệu AC/RF (siêu cao tần)**. 
+
+---
+
+## 1. Tổng quan cấu trúc mạch
+
+Đây là một **mạch khuếch đại tín hiệu siêu cao tần** sử dụng Transistor BJT mắc theo cấu hình **Cực phát chung (Common Emitter - CE)**.
+
+* **Đặc điểm nhận diện:** Tín hiệu đi vào ở cực Base (thông qua $R_S$), cực Emitter nối đất trực tiếp, và tín hiệu lấy ra ở cực Collector.
+* **Lưu ý:** Việc Emitter nối thẳng xuống đất (không qua điện trở hay tụ bù) là rất phổ biến ở dải vi ba để giảm thiểu tối đa độ tự cảm kí sinh của chân linh kiện, giúp mạch hoạt động ổn định ở tần số cao.
+
+---
+
+## 2. Phân tích nguyên lý DC / AC
+
+Khi phân tích mạch siêu cao tần, bạn cần chia mạch làm 2 trạng thái hoạt động tách biệt:
+
+### Chế độ DC (Cấp nguồn)
+Dòng điện 1 chiều từ nguồn $V_{CC}$ sẽ đi qua điện trở $R$, cuộn cảm $L_1$, qua nút giao và qua cuộn cảm $L_3$ để cấp điện áp thiên áp (bias) cho cực Collector. 
+* Đối với dòng DC (tần số $f = 0$), các cuộn cảm $L_1, L_3$ hoạt động giống như dây dẫn thông thường (cảm kháng xấp xỉ bằng 0). 
+* Tụ điện $C$ sẽ chặn dòng DC, không cho rò rỉ ra đầu ra $V_{OUT}$.
+
+### Chế độ AC / RF (Khuếch đại tín hiệu)
+Tín hiệu xoay chiều tần số cao $V_{IN}$ đi vào cực Base, được Transistor khuếch đại và xuất hiện tại cực Collector. 
+* Tín hiệu RF đi qua mạng $L_3, L_2$ và tụ $C$ để xuất ra ngoài tại $V_{OUT}$.
+
+---
+
+## 3. Giải mã chức năng từng linh kiện chi tiết
+
+### A. Khối Đầu vào (Input)
+* **$V_{IN}$ & $R_S$:** $V_{IN}$ là nguồn tín hiệu vi ba cần khuếch đại. $R_S$ đại diện cho nội trở của nguồn phát, hoặc đóng vai trò là điện trở hạn dòng, định thiên đầu vào cho cực Base.
+
+### B. Khối Cấp nguồn DC (Rất hay bị hỏi xoáy)
+* **$V_{CC}$ & $R$:** Cung cấp năng lượng 1 chiều và giới hạn dòng định thiên.
+* **$L_1$ (Cuộn chặn cao tần - RF Choke / RFC):** Đây là linh kiện quan trọng nhất để hỏi đáp.
+
+> **❓ Câu hỏi của giảng viên:** *Tại sao lại cần $L_1$? Bỏ đi nối thẳng được không?*
+> 
+> **💡 Cách trả lời:** Nhiệm vụ của $L_1$ là **chặn tín hiệu siêu cao tần rò rỉ ngược về nguồn DC $V_{CC}$**. Vì cảm kháng của cuộn dây là $Z_L = j\omega L$, ở dải tần số siêu cao (tần số $\omega$ rất lớn), trở kháng của $L_1$ sẽ cực kỳ cao (coi như hở mạch đối với tín hiệu RF). Ngược lại, với dòng cấp nguồn DC ($\omega = 0$), $L_1$ cho dòng đi qua dễ dàng. Việc này giúp cách ly hoàn toàn khối cấp nguồn và khối tín hiệu, tránh tổn hao công suất RF.
+
+### C. Khối Mạng xuất tín hiệu (Output Matching Network)
+* **$L_3, L_2$ và Tụ $C$:** Tạo thành một **mạch phối hợp trở kháng (Impedance Matching Network)**.
+* **Mục đích:** Trong kỹ thuật siêu cao tần, nếu nối thẳng đầu ra của Transistor ra tải sẽ gây dội tín hiệu (Mismatch) do chênh lệch trở kháng. Mạng này có nhiệm vụ "biến đổi" trở kháng của tải sao cho bằng với trở kháng phức liên hợp đầu ra của Transistor.
+* **Lợi ích:** Đảm bảo **truyền tải công suất tối đa (Maximum Power Transfer)** từ bộ khuếch đại ra tải và triệt tiêu sóng phản xạ.
+* **Ý nghĩa của "Mạch tổng hợp kiểu cầu":** Việc cấp nguồn xen giữa $L_3$ và $L_2$ là một thủ thuật thiết kế mạch thực tế. Nó chia nhỏ cuộn cảm của mạng phối hợp trở kháng để vừa làm nhiệm vụ lọc/phối hợp, vừa tạo ra một "nút" ảo để bơm nguồn DC vào mà không làm xáo trộn đường đi của tín hiệu cao tần.
 
