@@ -1,4 +1,3 @@
-<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/1da25f50-9813-49aa-b843-aef71fe161e8" />
 
 # cao-tan
 # Nguyên Lý Hoạt Động Mạch Khuếch Đại Siêu Cao Tần (RF/Microwave Amplifier Operation)
