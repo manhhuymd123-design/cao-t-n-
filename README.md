@@ -1,16 +1,9 @@
 # cao-tan
-<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/46349c3b-5e00-4b01-8309-c52ccfece95e" />
 # Nguyên Lý Hoạt Động Mạch Khuếch Đại Siêu Cao Tần (RF/Microwave Amplifier Operation)
 
-
 Hệ thống siêu cao tần luôn được phân tích độc lập trên hai chế độ tách biệt: **Chế độ một chiều (DC Bias)** để nuôi Transistor và **Chế độ xoay chiều (AC/RF)** để khuếch đại tín hiệu. Tài liệu này phân tích chi tiết nguyên lý hoạt động của hai cấu hình mạch phân cực phổ biến.
-
----
-
 ## 1. Nguyên Lý Hoạt Động Mạch (a) - Nguồn Đôi
-
 Cấu hình này sử dụng một nguồn dương, một nguồn âm độc lập và thực hiện nối đất trực tiếp cực Source.
-
 ### 🔹 Chế độ một chiều (DC Bias)
 * **Cấp nguồn:** * Nguồn âm **V_G = -2 V** được đưa vào cực Gate thông qua cuộn cảm chặn cao tần (RFC).
   * Nguồn dương **V_D = 5 V** được đưa vào cực Drain qua một cuộn cảm RFC khác.
@@ -60,7 +53,6 @@ Cấu hình này sử dụng phương pháp nâng điện áp cực Source lên 
 
 ---
 
-<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/0099f71a-189e-49c9-8894-f92943a01464" />
 # Phân Tích Chi Tiết Mạch Phân Cực (e) - Cấu Hình Nguồn Đơn Âm (Drain Grounded)
 
 [![Field - RF & Microwave](https://img.shields.io/badge/Field-RF%20%26%20Microwave-blue.svg)](https://github.com)
@@ -118,7 +110,6 @@ Theo thông số đề bài cung cấp, điện áp tĩnh tại chân Source đ�
 
 ---
 
-<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/08abdf29-8de1-49af-8e24-5424f002a345" />
 # Phân Tích Chi Tiết Mạch Khuếch Đại Bù Tần Số Mở Rộng Dải Thông (Shunt Peaking Amplifier)
 
 [![Field - RF & Microwave](https://img.shields.io/badge/Field-RF%20%26%20Microwave-blue.svg)](https://github.com)
@@ -170,7 +161,6 @@ Tổng trở kháng của nhánh gánh này được tính bằng công thức:
 
 ---
 
-<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/2bc3c3fc-5c3b-4efb-858d-a11277da9517" />
 # Phân Tích Chi Tiết Mạch Khuếch Đại Bù Cuộn Cảm Nối Tiếp (Series Peaking Amplifier)
 
 [![Field - RF & Microwave](https://img.shields.io/badge/Field-RF%20%26%20Microwave-blue.svg)](https://github.com)
@@ -221,7 +211,7 @@ Tương tự như mạch trước, nguyên nhân chính làm mạch suy giảm k
   2. **Về cơ chế:** Shunt Peaking hoạt động bằng cách *tăng tổng trở tải* cục bộ ở tần số cao để tăng độ lợi, bù lại phần tín hiệu bị rò. Trong khi đó, Series Peaking hoạt động thông minh hơn bằng cách *cách ly tải tụ* và dùng đặc tính cộng hưởng trễ của dòng qua cuộn cảm để duy trì điện áp trên tụ tải. Nhờ khả năng phân tách điện dung, Series Peaking giúp mở rộng băng thông tốt hơn so với Shunt Peaking ạ."
 
 ---
-<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/f1c9af9f-7130-418e-a8e9-1cc2e25060e0" />
+
 # Phân Tích Chi Tiết Mạch Khuếch Đại Kết Hợp (Shunt-Series Peaking Amplifier)
 
 [![Field - RF & Microwave](https://img.shields.io/badge/Field-RF%20%26%20Microwave-blue.svg)](https://github.com)
@@ -267,7 +257,7 @@ Mạch khuếch đại trong sơ đồ là cấu hình tối ưu nâng cao ứng
 * **Cách trả lời ăn điểm:** "Dạ thưa Thầy/Cô, nếu chúng ta chỉ tăng giá trị của cuộn L1 lên quá lớn, mạch sẽ xảy ra hiện tượng **quá bù (Over-peaking)**. Lúc này, đáp ứng tần số tại vùng cao tần sẽ bị nhô lên một đỉnh nhọn rất cao gây méo biên độ nghiêm trọng và dễ khiến mạch bị mất ổn định, tự kích thành mạch dao động. Bằng cách phối hợp thêm cuộn L2 nối tiếp, ta có thể phân tách bớt nhiệm vụ: L1 lo tăng trở kháng tải vừa phải, còn L2 lo cách ly điện dung tải và định hình đáp ứng cộng hưởng ngõ ra. Giải pháp kết hợp này giúp mạch vừa đạt được băng thông rộng lớn nhất, vừa giữ được đáp ứng tần số phẳng tối đa (Maximally Flat Response) mà không sợ bị tự kích ạ."
 
 ---
-<img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/b19a8e74-2a86-41ce-b630-926d330d4513" />
+
 # Phân Tích Mạch Khuếch Đại Siêu Cao Tần (RF Amplifier)
 *Tài liệu ôn thi vấn đáp môn Siêu cao tần*
 
