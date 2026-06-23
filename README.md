@@ -222,6 +222,48 @@ Tương tự như mạch trước, nguyên nhân chính làm mạch suy giảm k
 
 ---
 <img width="2560" height="2560" alt="image" src="https://github.com/user-attachments/assets/f1c9af9f-7130-418e-a8e9-1cc2e25060e0" />
+# Phân Tích Chi Tiết Mạch Khuếch Đại Kết Hợp (Shunt-Series Peaking Amplifier)
 
+[![Field - RF & Microwave](https://img.shields.io/badge/Field-RF%20%26%20Microwave-blue.svg)](https://github.com)
+[![Circuit - Shunt Series Peaking](https://img.shields.io/badge/Circuit-Shunt%20Series%20Peaking-red.svg)](https://github.com)
+
+Mạch khuếch đại trong sơ đồ là cấu hình tối ưu nâng cao ứng dụng kỹ thuật bù tần số. Bằng cách kết hợp đồng thời cả hai phương pháp **Bù song song (Shunt Peaking)** qua cuộn cảm L1 và **Bù nối tiếp (Series Peaking)** qua cuộn cảm L2, mạch đạt được khả năng mở rộng dải thông (Bandwidth) ở vùng tần số siêu cao một cách tối đa.
+
+---
+
+## 1. Bản Chất Giới Hạn Dải Thông Trong Mạch
+
+* **Tụ ký sinh ngõ ra (C):** Ở tần số siêu cao, dung kháng của tụ điện ký sinh hiệu dụng C giảm mạnh, tạo thành một đường thoát xoay chiều đưa tín hiệu khuếch đại từ cực Collector rò rỉ xuống đất.
+* **Hệ quả:** Hiện tượng này làm sụt giảm nghiêm trọng độ lợi (Gain) của tầng khuếch đại ở băng tần cao, gây thu hẹp dải thông làm việc. Mạch kết hợp L1, L2 sinh ra để giải quyết triệt để điểm yếu này.
+
+---
+
+## 2. Vai Trò Và Cơ Chế Bù Tần Số Của Từng Cuộn Cảm
+
+### 🔹 Cuộn cảm L1 (Bù song song - Shunt Peaking)
+* **Vị trí mắc:** Được mắc nối tiếp với điện trở gánh R tạo thành một nhánh gánh. Nhánh này nằm song song với mạng tụ ký sinh ngõ ra hướng xuống đất xoay chiều.
+* **Cơ chế hoạt động:** Khi tần số tín hiệu tăng lên, cảm kháng của cuộn cảm L1 (X_L1 = omega * L1) tăng tiến, kéo theo tổng trở kháng tải Z_load của mạch tăng theo ở vùng tần số cao.
+* **Tác dụng:** Sự gia tăng trở kháng tải giúp tăng cường hệ số khuếch đại điện áp ở tần số cao, bù đắp trực tiếp cho lượng biên độ bị hao hụt do tụ C gây ra.
+
+### 🔹 Cuộn cảm L2 (Bù nối tiếp - Series Peaking)
+* **Vị trí mắc:** Mắc nối tiếp trực tiếp trên đường truyền tín hiệu từ cực Collector của Transistor ra nút ngõ ra V_OUT.
+* **Cơ chế hoạt động:** L2 hoạt động như một bộ lọc/rào cản tần số cao, giúp cách ly phần điện dung ký sinh nội tại của Transistor khỏi điện dung gánh C ở phía sau.
+* **Tác dụng:** Ở vùng tần số cắt, L2 phối hợp với C tạo thành một mạch cộng hưởng nối tiếp nhằm duy trì và nâng áp tại điểm V_OUT, giúp kéo dài đường đáp ứng tần số phẳng.
+
+---
+
+## 3. Hiệu Quả Tối Ưu Của Cấu Hình Kết Hợp
+
+* Nếu chỉ sử dụng mạch bù đơn song song (Shunt Peaking), dải thông chỉ tăng tối đa khoảng 1.7 - 1.8 lần.
+* Nếu chỉ sử dụng mạch bù đơn nối tiếp (Series Peaking), dải thông có thể mở rộng lên khoảng 2 lần.
+* **Khi kết hợp Shunt-Series (L1 và L2):** Mạch tối ưu hóa được cả việc tăng trở kháng tải (L1) và cách ly dung tính (L2). Kết quả là dải thông của mạch khuếch đại được kéo dãn rộng lên đến **hơn 2.5 lần** so với mạch không sử dụng cuộn cảm bù, trong khi vẫn đảm bảo đường đặc tính biên độ - tần số phẳng lý tưởng, không bị nhô đỉnh quá mức.
+
+---
+
+## 4. Bộ Câu Hỏi Vấn Đáp Ăn Điểm Tuyệt Đối
+
+> 💡 **Câu hỏi của Thầy/Cô:** *"Tại sao chúng ta không tăng thông số cuộn cảm L1 lên thật lớn để mở rộng băng thông nhiều hơn, mà lại phải mắc thêm cuộn L2 làm gì cho tốn linh kiện?"*
+
+* **Cách trả lời ăn điểm:** "Dạ thưa Thầy/Cô, nếu chúng ta chỉ tăng giá trị của cuộn L1 lên quá lớn, mạch sẽ xảy ra hiện tượng **quá bù (Over-peaking)**. Lúc này, đáp ứng tần số tại vùng cao tần sẽ bị nhô lên một đỉnh nhọn rất cao gây méo biên độ nghiêm trọng và dễ khiến mạch bị mất ổn định, tự kích thành mạch dao động. Bằng cách phối hợp thêm cuộn L2 nối tiếp, ta có thể phân tách bớt nhiệm vụ: L1 lo tăng trở kháng tải vừa phải, còn L2 lo cách ly điện dung tải và định hình đáp ứng cộng hưởng ngõ ra. Giải pháp kết hợp này giúp mạch vừa đạt được băng thông rộng lớn nhất, vừa giữ được đáp ứng tần số phẳng tối đa (Maximally Flat Response) mà không sợ bị tự kích ạ."
 
 
