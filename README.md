@@ -9,13 +9,6 @@ Hệ thống siêu cao tần luôn được phân tích độc lập trên hai c
 
 ---
 
-## 📋 Mục lục
-1. [Nguyên Lý Hoạt Động Mạch (a) - Nguồn Đôi](#1-nguyên-lý-hoạt-động-mạch-a---nguồn-đôi)
-2. [Nguyên Lý Hoạt Động Mạch (b) - Nguồn Đơn (Nâng Áp Source)](#2-nguyên-lý-hoạt-động-mạch-b---nguồn-đơn-nâng-áp-source)
-3. [Tóm Tắt Chức Năng Thành Phần Linh Kiện](#3-tóm-tắt-chức-năng-thành-phần-linh-kiện)
-
----
-
 ## 1. Nguyên Lý Hoạt Động Mạch (a) - Nguồn Đôi
 
 Cấu hình này sử dụng một nguồn dương, một nguồn âm độc lập và thực hiện nối đất trực tiếp cực Source.
@@ -66,3 +59,5 @@ Cấu hình này sử dụng phương pháp nâng điện áp cực Source lên 
 | **Tụ nối tầng (Series C)** | Hở mạch (Ngăn áp DC lọt ra ngoài) | Ngắn mạch (Cho tín hiệu RF đi qua) |
 | **Cuộn cảm chặn (RFC)** | Dẫn điện (Cấp nguồn nuôi cho cực) | Hở mạch (Chặn RF rò vào nguồn DC) |
 | **Tụ thoát nguồn (Bypass C)** | Hở mạch (Giữ nguyên điện áp phân cực) | Ngắn mạch (Tạo điểm đất ảo AC Ground) |
+
+
